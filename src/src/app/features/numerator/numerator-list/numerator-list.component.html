@@ -39,11 +39,12 @@ $last){
   </div>
 </div>
 
-@if (last){
+}
 <button class="btn btn-primary w-100" (click)="show = 'createNumerator'">
   Pridėti skaitliuką
 </button>
-} } }
+
+}
 
 <!-- History -->
 @else if (show === 'history') {
@@ -169,6 +170,12 @@ $last){
   class="btn btn-primary"
   (click)="addNumerator(idInput.value, valueInput.value)"
 >
+  Pridėti
+</button>
+
+} @else {
+
+<button class="btn btn-primary" (click)="addNumerator(idInput.value)">
   Pridėti
 </button>
 } }

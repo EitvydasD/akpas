@@ -30,7 +30,8 @@ export class LoginComponent extends BaseFeature {
     }
 
     this.userService.login(this.form.getRawValue() as LoginRequest);
-
-    this.router.navigate(['/profile']);
+    if (this.userService.isAuthenticated) {
+      this.router.navigate(['/profile']);
+    }
   }
 }

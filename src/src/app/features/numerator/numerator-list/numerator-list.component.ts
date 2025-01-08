@@ -122,7 +122,7 @@ export class NumeratorListComponent extends BaseFeature implements OnInit {
     this.show = 'list';
   }
 
-  public addNumerator(numeratorId: string, value: string): void {
+  public addNumerator(numeratorId: string, value: string = ''): void {
     const existing = this.numerators.find((x) => x.id === numeratorId);
     if (existing) {
       return;
@@ -134,6 +134,10 @@ export class NumeratorListComponent extends BaseFeature implements OnInit {
       values: [],
       supplier: this.selectedSupplier,
     };
+
+    if (value === '') {
+      value = '123456';
+    }
 
     numerator.values.push({
       id: `${numerator.id}-${numerator.values.length + 1}`,
