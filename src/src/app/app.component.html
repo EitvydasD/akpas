@@ -1,0 +1,60 @@
+<div class="min-vh-main">
+  <nav class="navbar fixed-bottom navbar-light bg-light px-3">
+    @if(isAuthenticated === true){
+    <a
+      class="navbar-brand"
+      routerLinkActive="text-primary"
+      routerLink="/suppliers"
+      >Tiekėjai</a
+    >
+    <a
+      class="navbar-brand"
+      routerLinkActive="text-primary"
+      routerLink="/numerators"
+      >Skaitliukai</a
+    >
+    <a
+      class="navbar-brand"
+      routerLinkActive="text-primary"
+      routerLink="/invoices"
+      >Sąskaitos</a
+    >
+
+    <a
+      class="navbar-brand"
+      routerLinkActive="text-primary"
+      routerLink="/balance"
+      >Balansas</a
+    >
+
+    <a
+      class="navbar-brand"
+      routerLinkActive="text-primary"
+      routerLink="/profile"
+      >Profilis</a
+    >
+
+    } @else {
+    <a
+      class="navbar-brand"
+      routerLinkActive="text-primary"
+      routerLink="/auth/login"
+      >Prisijungti</a
+    >
+    <a
+      class="navbar-brand"
+      routerLinkActive="text-primary"
+      routerLink="/auth/register"
+      >Registruotis</a
+    >
+    }
+  </nav>
+
+  <main class="main-container">
+    <div id="main-content" class="overflow-auto">
+      <div class="p-3 mb-4">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,97 @@
+<!-- Paid -->
+@if (show === 'paid') {
+
+<p>Čia rodomos apmokėtos sąskaitos.</p>
+<button class="btn btn-primary w-100 mb-3" (click)="show = 'unpaid'">
+  Žiūrėti neapmokėtas sąskaitas
+</button>
+@for (invoice of paidInvoices; track invoice) {
+
+<div class="card rounded p-3 mb-3">
+  <title-text
+    title="Gavimo data:"
+    [text]="invoice.generationDate | date : 'short'"
+  ></title-text>
+  <title-text
+    title="Apmokėjimo data:"
+    [text]="invoice.payDate | date : 'short'"
+  ></title-text>
+  <title-text
+    title="Suma:"
+    [text]="(getAmount(invoice) | number : '1.2-2') + ' €'"
+  ></title-text>
+
+  <button class="btn btn-outline-primary" (click)="selectInvoice(invoice)">
+    Sąskaitą faktūra
+  </button>
+</div>
+} }
+<!-- Unpaid -->
+@else if (show === 'unpaid'){
+<p>Čia rodomos neapmokėtos sąskaitos.</p>
+<button class="btn btn-primary w-100 mb-3" (click)="show = 'paid'">
+  Žiūrėti apmokėtas sąskaitas
+</button>
+
+@for (invoice of unpaidInvoices; track invoice) {
+<div class="card rounded p-3 mb-3">
+  <title-text
+    title="Gavimo data:"
+    [text]="invoice.generationDate | date : 'short'"
+  ></title-text>
+  <title-text
+    title="Apmokėjimo data:"
+    [text]="invoice.payDate | date : 'short'"
+  ></title-text>
+  <title-text
+    title="Suma:"
+    [text]="(getAmount(invoice) | number : '1.2-2') + ' €'"
+  ></title-text>
+
+  <div class="d-flex justify-content-between gap-3">
+    <button class="btn btn-outline-primary" (click)="selectInvoice(invoice)">
+      Sąskaitą faktūra
+    </button>
+    <button class="btn btn-outline-primary" (click)="payInvoice(invoice)">
+      Apmokėti
+    </button>
+  </div>
+</div>
+}}
+
+<!-- Invoice -->
+@else if (show === 'invoice') {
+<h4>Sąskaita faktūra</h4>
+<p>ID-{{ selectedInvoice?.id }}</p>
+
+<div class="card border p-3">
+  <title-text
+    title="Pardavėjas:"
+    [text]="selectedInvoice?.supplier?.name"
+  ></title-text>
+  <title-text
+    title="Pirkėjas:"
+    [text]="account?.firstName + ' ' + account?.lastName"
+  ></title-text>
+  <title-text
+    title="Paslaugos:"
+    [text]="selectedInvoice?.supplier?.speciality"
+  ></title-text>
+  <title-text
+    title="Matavimo vienetas:"
+    [text]="selectedInvoice?.supplier?.valueType"
+  ></title-text>
+  <title-text
+    title="Kiekis:"
+    [text]="getAmountLastMonth(selectedInvoice)"
+  ></title-text>
+  <title-text
+    title="Tarifas:"
+    [text]="selectedInvoice?.supplier?.rate"
+  ></title-text>
+</div>
+
+<button class="btn btn-primary w-100 mt-3" (click)="show = 'paid'">
+  Grįžti
+</button>
+}

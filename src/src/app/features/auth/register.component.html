@@ -1,0 +1,69 @@
+<div class="d-flex justifty-content-center">
+  <form class="w-100" [formGroup]="form">
+    <h2 class="text-center mb-4">Registracija</h2>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        placeholder="Vardas"
+        formControlName="firstName"
+      />
+      <label for="firstName">Vardas</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        placeholder="Pavardė"
+        formControlName="lastName"
+      />
+      <label for="lastName">Pavardė</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="name@example.com"
+        formControlName="email"
+      />
+      <label for="email">El. paštas</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="personalCode"
+        placeholder="Asmens kodas"
+        formControlName="personalCode"
+      />
+      <label for="personalCode">Asmens kodas</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Slaptažodis"
+        formControlName="password"
+      />
+      <label for="password">Slaptažodis</label>
+    </div>
+    <div class="form-floating">
+      <input
+        type="password"
+        class="form-control"
+        id="confirmPassword"
+        placeholder="Pakartoti slaptažodį"
+        formControlName="confirmPassword"
+      />
+      <label for="confirmPassword">Pakartoti slaptažodį</label>
+    </div>
+
+    <button class="btn btn-primary mt-3 w-100" (click)="register()">
+      Registruotis
+    </button>
+  </form>
+</div>

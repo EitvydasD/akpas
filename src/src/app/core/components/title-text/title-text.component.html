@@ -1,0 +1,11 @@
+@if (type === 'vertical') {
+<div>
+  <p class="m-0 fw-bold">{{ title }}</p>
+  <p>{{ text }}</p>
+</div>
+} @else {
+<div class="d-flex justify-content-between">
+  <p class="m-0 fw-bold">{{ title }}</p>
+  <p>{{ text }}</p>
+</div>
+}

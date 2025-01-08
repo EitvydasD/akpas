@@ -1,0 +1,58 @@
+<div>
+  <h2>Profilis</h2>
+  <div class="border p-2 rounded">
+    <div>
+      <p class="m-0 fw-bold">Vardas</p>
+      <p>{{ account?.firstName }}</p>
+    </div>
+    <div>
+      <p class="m-0 fw-bold">Pavardė</p>
+      <p>{{ account?.lastName }}</p>
+    </div>
+    <div>
+      <p class="m-0 fw-bold">El. paštas</p>
+      <p>{{ account?.email }}</p>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h2 class="mt-4">Nustatymai</h2>
+
+  <div class="border p-2 rounded">
+    @for(notification of account?.settings?.notifications; track notification){
+    <div
+      class="form-check form-switch"
+      (click)="notification.enabled = !notification.enabled"
+    >
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [id]="notification.name"
+        [checked]="notification.enabled"
+      />
+      <label class="form-check-label" [for]="notification.name">{{
+        notification.name
+      }}</label>
+    </div>
+    }
+    <button class="mt-3 btn btn-outline-primary w-100" (click)="saveSettings()">
+      Išsaugoti
+    </button>
+  </div>
+
+  <h2 class="mt-3">Mano banko sąskaita:</h2>
+  <div class="card rounded bg-light p-3">
+    @if (account?.card){
+    <p class="fw-bold fs-lg">{{ account?.card?.cardNumber }}</p>
+    <p>Galioja iki: {{ account?.card?.validTo | date : "YY/MM" }}</p>
+    <div class="text-end text-danger" (click)="removeCard()">Pašalinti</div>
+    } @else {
+    <div (click)="addCard()">Pridėti</div>
+    }
+  </div>
+
+  <button class="btn btn-outline-danger mt-3 w-100" (click)="logout()">
+    Atsijungti
+  </button>
+</div>

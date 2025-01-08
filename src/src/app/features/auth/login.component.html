@@ -1,0 +1,30 @@
+<div class="d-flex justifty-content-center">
+  <form class="w-100" [formGroup]="form">
+    <h2 class="text-center mb-4">Prisijungimas</h2>
+    <div class="form-floating mb-3">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="name@example.com"
+        formControlName="email"
+      />
+      <label for="email">El. paštas</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Slaptažodis"
+        formControlName="password"
+      />
+      <label for="password">Slaptažodis</label>
+    </div>
+
+    <button class="btn btn-primary mt-3 w-100" (click)="login()">
+      Prisijungti
+    </button>
+  </form>
+</div>

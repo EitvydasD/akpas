@@ -1,0 +1,174 @@
+<!-- List -->
+@if (show === "list"){ @for(numerator of numerators; track numerator; let last =
+$last){
+<div class="card p-3 mb-3">
+  <div class="d-flex justify-content-between mb-3">
+    <p class="m-0 fw-bold">ID: {{ numerator.id }}</p>
+    <p class="m-0 fw-bold">Tiekėjas: {{ numerator.supplier.name }}</p>
+  </div>
+
+  <title-text
+    type="vertical"
+    title="Tipas:"
+    [text]="numerator.type"
+  ></title-text>
+  <title-text
+    type="vertical"
+    title="Paskutinis ruodmuo:"
+    [text]="numerator.values[0].value"
+  ></title-text>
+  <title-text
+    type="vertical"
+    title="Paskutinis atnaujinimo laikas:"
+    [text]="numerator.values[0].date | date : 'short'"
+  ></title-text>
+
+  <div class="d-flex justify-content-between gap-3">
+    <button class="btn btn-outline-primary" (click)="showHistory(numerator)">
+      Rodmenų istorija
+    </button>
+    <button class="btn btn-outline-primary" (click)="updateOrInsert(numerator)">
+      {{ numerator.type === "Rankinis" ? "Įvesti rodmenis" : "Atnaujinti" }}
+    </button>
+    <button
+      class="btn btn-outline-primary"
+      (click)="removeNumerator(numerator)"
+    >
+      Pašalinti skaitliuką
+    </button>
+  </div>
+</div>
+
+@if (last){
+<button class="btn btn-primary w-100" (click)="show = 'createNumerator'">
+  Pridėti skaitliuką
+</button>
+} } }
+
+<!-- History -->
+@else if (show === 'history') {
+
+<p>Čia rodoma skaitliuko rodmenų istorija.</p>
+
+<div class="mb-3">
+  {{ selectedNumerator?.supplier?.name }} | {{ selectedNumerator?.id }} |
+  {{ selectedNumerator?.supplier?.speciality }}
+</div>
+
+@for (value of selectedNumerator?.values; track value; let index = $index) {
+<p class="m-0">{{ value.forDate | date : "YYYY-MM-dd" }}</p>
+<div class="border p-3 rounded mb-3">
+  <div>
+    <p class="m-0">Įvesta: {{ value.date | date : "YYYY-MM-dd" }}</p>
+    <p class="m-0">
+      Rodmenys: {{ value.value }} {{ selectedNumerator?.supplier?.valueType }}
+    </p>
+    <p class="m-0">Sunaudota: {{ value.usedValue }} kWh</p>
+  </div>
+</div>
+
+@if (index === 0){
+<button class="btn btn-primary w-100 mb-3" (click)="show = 'list'">
+  Grįžti
+</button>
+
+<p>Senesni:</p>
+} } }
+
+<!-- Create numerator value -->
+@else if (show === 'create') {
+<p>
+  Čia galite įvesti skaitliuko duomenis už praetą arba ankstesnius mėnesius.
+</p>
+
+<div class="d-flex justify-content-between gap-3 border p-3 rounded mb-3">
+  <div (click)="updateSelectedMonth(-1)"><-</div>
+  <div class="fw-bold">
+    {{ selectedMonth | date : "yyyy-MM" }}
+  </div>
+  <div (click)="updateSelectedMonth(1)">-></div>
+</div>
+
+<div class="d-flex justify-content-center mb-3">
+  {{ selectedNumerator?.supplier?.name }} | {{ selectedNumerator?.id }} |
+  {{ selectedNumerator?.supplier?.speciality }}
+</div>
+
+<input
+  #numeratorInput
+  type="number"
+  class="form-control mb-3"
+  [placeholder]="'Rodmenys'"
+/>
+
+<button
+  class="btn btn-primary w-100 mb-3"
+  (click)="saveNumeratorValue(numeratorInput.value)"
+>
+  Įvesti duomenis
+</button>
+
+<button class="btn btn-outline-primary w-100" (click)="show = 'list'">
+  Grįžti
+</button>
+}
+
+<!-- Create numerator -->
+@else if (show === 'createNumerator') {
+<div>Tipas:</div>
+<div class="dropdown mb-3">
+  <button
+    class="btn btn-outline-primary dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    {{ selectedType }}
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <a class="dropdown-item" (click)="selectedType = 'Rankinis'">Rankinis</a>
+    </li>
+    <li>
+      <a class="dropdown-item" (click)="selectedType = 'Automatinis'"
+        >Automatinis</a
+      >
+    </li>
+  </ul>
+</div>
+
+<div>Tiekėjas:</div>
+<div class="dropdown mb-3">
+  <button
+    class="btn btn-outline-primary dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    {{ selectedSupplier.name }}
+  </button>
+  <ul class="dropdown-menu">
+    @for (supplier of suppliers; track supplier) {
+    <li>
+      <a class="dropdown-item" (click)="selectedSupplier = supplier">{{
+        supplier.name
+      }}</a>
+    </li>
+    }
+  </ul>
+</div>
+
+<div>Identifikacinis kodas:</div>
+<input type="text" class="form-control mb-3" #idInput />
+
+@if (selectedType === 'Rankinis') {
+<div>Dabartinis ruodmuo:</div>
+<input type="number" class="form-control mb-3" #valueInput />
+
+<button
+  class="btn btn-primary"
+  (click)="addNumerator(idInput.value, valueInput.value)"
+>
+  Pridėti
+</button>
+} }

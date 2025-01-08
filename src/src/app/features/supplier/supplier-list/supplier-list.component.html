@@ -1,0 +1,20 @@
+<p>Jūsų paslaugų tiekėjai, susieti su AKPAS:</p>
+@for (supplier of enabledSuppliers; track supplier) {
+<div class="card p-3 rounded border mb-3">
+  {{ supplier.name }}
+</div>
+} @if (disabledSuppliers.length > 0) {
+
+<p>Jūsų paslaugų tiekėjai, nesusieti su AKPAS:</p>
+@for (supplier of disabledSuppliers; track supplier) {
+<div class="card p-3 rounded border mb-3">
+  <div class="d-flex justify-content-between">
+    <div>
+      {{ supplier.name }}
+    </div>
+    <button class="btn btn-secondary" (click)="addSupplier(supplier)">
+      Pridėti
+    </button>
+  </div>
+</div>
+} }
