@@ -1,0 +1,124 @@
+[
+  {
+    "id": "invoice-1",
+    "status": "Sumokėta",
+    "payDate": "2020-01-01T00:00:00.000Z",
+    "generationDate": "2019-12-01T00:00:00.000Z",
+    "supplier": {
+      "id": "ignitis",
+      "name": "UAB \"Ignitis\"",
+      "speciality": "Elektros energija",
+      "valueType": "kWh",
+      "rate": 0.2,
+      "enabled": true
+    },
+    "accountId": "first-last-account",
+    "operations": [
+      {
+        "id": "1",
+        "operation": "Withdraw",
+        "date": "2020-01-01T00:00:00.000Z",
+        "amount": 50
+      }
+    ]
+  },
+  {
+    "id": "invoice-2",
+    "status": "Sumokėta",
+    "payDate": "2020-02-01T00:00:00.000Z",
+    "generationDate": "2020-01-01T00:00:00.000Z",
+    "supplier": {
+      "id": "ignitis",
+      "name": "UAB \"Ignitis\"",
+      "speciality": "Elektros energija",
+      "valueType": "kWh",
+      "rate": 0.2,
+      "enabled": true
+    },
+    "accountId": "first-last-account",
+    "operations": [
+      {
+        "id": "2",
+        "operation": "Withdraw",
+        "date": "2020-02-01T00:00:00.000Z",
+        "amount": 20
+      }
+    ]
+  },
+  {
+    "id": "invoice-3",
+    "status": "Sumokėta",
+    "payDate": "2020-02-01T00:00:00.000Z",
+    "generationDate": "2020-01-01T00:00:00.000Z",
+    "supplier": {
+      "id": "ignitis",
+      "name": "UAB \"Ignitis\"",
+      "speciality": "Elektros energija",
+      "valueType": "kWh",
+      "rate": 0.2,
+      "enabled": true
+    },
+    "accountId": "first-last-account",
+    "operations": [
+      {
+        "id": "2",
+        "operation": "Withdraw",
+        "date": "2020-02-01T00:00:00.000Z",
+        "amount": 20
+      }
+    ]
+  },
+  {
+    "id": "depositInvoice",
+    "status": "Balansas",
+    "payDate": "2025-01-08T22:31:44.655Z",
+    "generationDate": "2025-01-08T22:31:44.655Z",
+    "supplier": {
+      "id": "ignitis",
+      "name": "UAB \"Ignitis\"",
+      "speciality": "Elektros energija",
+      "valueType": "kWh",
+      "rate": 0.2,
+      "enabled": true
+    },
+    "operations": [
+      {
+        "id": "1",
+        "operation": "Withdraw",
+        "amount": 20,
+        "date": "2025-01-08T22:31:44.655Z"
+      },
+      {
+        "id": "2",
+        "operation": "Withdraw",
+        "amount": 20,
+        "date": "2025-01-08T22:33:06.157Z"
+      },
+      {
+        "id": "3",
+        "operation": "Deposit",
+        "amount": 50,
+        "date": "2025-01-08T22:36:56.724Z"
+      },
+      {
+        "id": "4",
+        "operation": "Deposit",
+        "amount": 30,
+        "date": "2025-01-08T22:38:04.449Z"
+      },
+      {
+        "id": "5",
+        "operation": "Deposit",
+        "amount": 10,
+        "date": "2025-01-08T22:38:13.779Z"
+      },
+      {
+        "id": "6",
+        "operation": "Deposit",
+        "amount": 10,
+        "date": "2025-01-08T22:38:38.597Z"
+      }
+    ],
+    "accountId": "first-last-account"
+  }
+]

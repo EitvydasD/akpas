@@ -70,6 +70,9 @@ export class InvoiceListComponent implements OnInit {
   public payInvoice(invoice: Invoice): void {
     invoice.status = 'Sumokėta';
     this.invoiceService.update(invoice.id, invoice);
+
+    this.account!.balance -= this.getAmount(invoice);
+    this.userService.updateBalance(this.account!, this.getAmount(invoice));
     this.refresh();
   }
 }

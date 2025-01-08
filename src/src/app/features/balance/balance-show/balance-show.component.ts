@@ -1,6 +1,5 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { SUPPLIER_IGNITIS } from '../../../core/data/supplier.data';
 import { FakeRepositoryService } from '../../../core/services/repository.service';
 import { UserService } from '../../../core/services/user.service';
 import { BalanceOperation, Invoice } from '../../../core/types/invoice.types';
@@ -33,19 +32,17 @@ export class BalanceShowComponent implements OnInit {
 
   private refresh(): void {
     this.balanceOperations = [];
-    const invoices = this.invoiceService.where(
-      (x) =>
-        (x.accountId === this.account?.id && x.status === 'Sumokėta') ||
-        x.status === 'Balansas'
+    const invoice = this.invoiceService.firstOrDefault(
+      (x) => x.accountId === this.account?.id && x.id === 'depositInvoice'
     );
 
-    invoices.forEach((x) => {
-      this.balanceOperations.push(...x.operations);
-    });
+    this.balanceOperations = invoice?.operations ?? [];
 
     this.balanceOperations = this.balanceOperations.sort((a, b) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
+
+    console.log(this.balanceOperations);
   }
 
   public addToBalance(balance: string): void {
@@ -55,35 +52,9 @@ export class BalanceShowComponent implements OnInit {
 
     const value = parseFloat(balance);
 
-    this.account.balance += value;
+    this.userService.updateBalance(this.account, value, 'Deposit');
 
-    this.userService.update(this.account);
-
-    let invoice = this.invoiceService.getById('depositInvoice');
-    if (!invoice) {
-      invoice = {
-        id: 'depositInvoice',
-        status: 'Balansas',
-        payDate: new Date(),
-        generationDate: new Date(),
-        supplier: SUPPLIER_IGNITIS, // Doesnt matter
-        operations: [],
-        accountId: this.account.id,
-      };
-
-      this.invoiceService.create(invoice);
-    }
-
-    invoice.operations.push({
-      id: (invoice.operations.length + 1).toString(),
-      operation: 'Deposit',
-      amount: value,
-      date: new Date(),
-    });
-
-    this.invoiceService.update(invoice.id, invoice);
-
-    this.refresh();
     this.show = 'balance';
+    this.refresh();
   }
 }

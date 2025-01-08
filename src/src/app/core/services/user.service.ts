@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ACCOUNT_SETTINGS, ACCOUNTS } from '../data/accounts.data';
+import { SUPPLIER_IGNITIS } from '../data/supplier.data';
 import { LoginRequest, RegisterRequest } from '../types/auth.types';
+import { Invoice } from '../types/invoice.types';
 import { User, UserSettings } from '../types/user.types';
 import { FakeRepositoryService } from './repository.service';
 
@@ -87,6 +89,42 @@ export class UserService {
   public update(account: User): void {
     this.set(account);
     this.userService.update(account.id, account);
+  }
+
+  public updateBalance(
+    account: User,
+    value: number,
+    operation: string = 'Withdraw'
+  ): void {
+    this.update(account);
+
+    const invoiceService = new FakeRepositoryService<Invoice>().initialize(
+      'invoices'
+    );
+
+    let invoice = invoiceService.getById('depositInvoice');
+    if (!invoice) {
+      invoice = {
+        id: 'depositInvoice',
+        status: 'Balansas',
+        payDate: new Date(),
+        generationDate: new Date(),
+        supplier: SUPPLIER_IGNITIS, // Doesnt matter
+        operations: [],
+        accountId: account.id,
+      };
+
+      invoiceService.create(invoice);
+    }
+
+    invoice.operations.push({
+      id: (invoice.operations.length + 1).toString(),
+      operation: operation,
+      amount: value,
+      date: new Date(),
+    });
+
+    invoiceService.update(invoice.id, invoice);
   }
 
   private set(account: User): void {
